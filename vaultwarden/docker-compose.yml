@@ -1,0 +1,23 @@
+---
+version: "3"
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:1.29.2
+    container_name: vaultwarden
+    environment:
+      - TZ=America/Toronto
+      - DOMAIN=https://vaultwarden.example.com  # Your domain; vaultwarden needs to know it's https to work properly with attachments
+      - ADMIN_TOKEN=password1234  #https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page#using-vaultwarden-hash
+    volumes:
+      - ./vw-data:/data
+    networks:
+      - vaultwarden_network
+    #ports:
+    #  - 80:80
+    restart: always
+
+networks:
+  vaultwarden_network:
+    driver: bridge
+    name: vaultwarden_network
